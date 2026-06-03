@@ -8,11 +8,18 @@ Documentation repository for the Job Tracker application. Contains architecture 
 |--------|----------|
 | `adr/` | Architecture Decision Records |
 | `user-stories/` | User stories by domain |
-| `diagrams/` | System architecture and data flow diagrams |
+| `architecture/` | EA artifacts — reference architecture, technology roadmap, engineering standards, security architecture, and executive brief |
+| `briefs/` | Project briefs |
 | `guides/` | Developer setup and contribution guides |
-| `api/` | API contract documentation |
 
 ## Documents
+
+### Architecture Documents
+- [Reference Architecture — C4 System Context + Container Diagram](architecture/reference-architecture.md)
+- [Technology Roadmap](architecture/technology-roadmap.md)
+- [Engineering Standards & Governance](architecture/engineering-standards-governance.md)
+- [Security Architecture](architecture/security-architecture.md)
+- [Executive Architecture Brief](architecture/executive-architecture-brief.md)
 
 ### Architecture Decision Records
 - [ADR-001: Microservices with Docker and Kubernetes](adr/ADR-001-microservices-architecture.md)
