@@ -29,6 +29,8 @@ The system will be built as a set of microservices, each owning its own domain. 
 ## Consequences
 
 - Increased initial complexity compared to a monolith.
-- Requires a service discovery and inter-service communication strategy.
+- Requires a service discovery and inter-service communication strategy — addressed by the YARP API Gateway (see ADR-011).
 - Local development requires Docker Compose configuration to run all services together.
 - Demonstrates Kubernetes orchestration, which is a key portfolio talking point.
+- **Docker Compose is the current production runtime.** The full application stack runs via `docker compose up` on a single Akamai VPS. Kubernetes remains the target orchestration platform for Phase 2, when horizontal scaling or multi-node deployment becomes a requirement.
+- **Polyrepo structure:** Each microservice, frontend, and supporting library has its own git repository (14 repositories total). This enforces deployment independence and prevents unintended cross-service coupling at the dependency level. The VS Code workspace file in `job-tracker-app-workspace` references all repos for a unified development experience.
