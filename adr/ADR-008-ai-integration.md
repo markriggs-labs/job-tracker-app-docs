@@ -14,7 +14,7 @@ Two parallel integration paths are implemented under a single AI tab on the Job 
 
 **Path 1 — Claude.AI Model (available now):** The AI Service assembles a complete, ready-to-use prompt server-side by fetching the job description from the Job Service and the experience document content from the Experience Service. The assembled prompt is returned to the frontend, where the user copies it and pastes it into their own [claude.ai](https://claude.ai) subscription. No Anthropic API key is required in the application.
 
-**Path 2 — API Service Model (coming soon):** Direct in-app generation via the Anthropic API. Resumes are generated and stored in MinIO without leaving the application. This path is built and wired but disabled in the UI until an Anthropic API key is provisioned for production.
+**Path 2 — API Service Model (coming soon):** Direct in-app generation using **Claude 3.5 Sonnet** via the Anthropic SDK (v4.0.0). Resumes are generated and stored in MinIO without leaving the application. This path is built and wired but disabled in the UI until an Anthropic API key is provisioned for production.
 
 ## Rationale
 
@@ -25,7 +25,7 @@ Two parallel integration paths are implemented under a single AI tab on the Job 
 
 ## AI profile system
 
-Users define free-text instruction profiles (AI profiles) that are injected into every prompt. This allows different generation styles — concise vs. detailed, specific industry emphasis, formatting preferences — without hardcoding behavior into the service. Profiles are stored per-user in PostgreSQL via the AI Service.
+Users define free-text instruction profiles (AI profiles) that are injected into every prompt. The AI Profile Instructions field is the **sole surface for all prompt customization** — no generation rules are hardcoded in the service. This gives users full control over generation style, industry emphasis, and formatting preferences without requiring service changes. Profiles are stored per-user in PostgreSQL via the AI Service.
 
 ## Alternatives considered
 
@@ -38,4 +38,5 @@ Users define free-text instruction profiles (AI profiles) that are injected into
 - `ANTHROPIC_API_KEY` is a required environment variable but can be left blank — the Claude.AI path works without it.
 - Generated resumes from Path 2 are stored in MinIO under `generated-resumes/{userId}/{jobId}/{resumeId}/` and listed on the AI tab.
 - The AI Service forwards the user's Bearer token to the Job Service and Experience Service to enforce per-user data isolation.
-- Future work: enable Path 2 in production by provisioning an API key; add PDF/DOCX text extraction (e.g., PdfPig, DocumentFormat.OpenXml) to eliminate the manual attachment step.
+- The AI Profile is the only place to configure prompt behavior. Hardcoded rules that were present in early iterations (experience depth, date ranges, embellishment guardrails) were removed — all such constraints now live in the user-managed AI Profile, making the generation behavior fully configurable without code changes.
+- Future work: enable Path 2 in production by provisioning an API key; add PDF/DOCX text extraction (e.g., PdfPig, DocumentFormat.OpenXml) to eliminate the manual attachment step for binary experience documents.
