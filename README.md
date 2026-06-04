@@ -32,6 +32,8 @@ Documentation repository for the Job Tracker application. Contains architecture 
 - [ADR-008: AI integration strategy — dual-model approach with server-side prompt assembly](adr/ADR-008-ai-integration.md)
 - [ADR-009: Terraform for VPS infrastructure provisioning](adr/ADR-009-terraform-vps-provisioning.md)
 - [ADR-010: Testing strategy](adr/ADR-010-testing-strategy.md)
+- [ADR-011: YARP Reverse Proxy as the API Gateway](adr/ADR-011-yarp-api-gateway.md)
+- [ADR-012: Nginx Proxy Manager for TLS termination](adr/ADR-012-nginx-proxy-manager-tls.md)
 
 ### User Stories
 - [All user stories](user-stories/user-stories.md)
