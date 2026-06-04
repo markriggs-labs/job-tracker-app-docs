@@ -41,5 +41,6 @@ Configuration lives in `terraform/` within `job-tracker-app-infrastructure`:
 
 - `terraform.tfvars` and `terraform.tfstate` are gitignored — credentials and state are never committed.
 - `terraform.tfvars.example` documents all required inputs without exposing values.
-- Application deployment (Docker Compose, `.env`, Nginx Proxy Manager) is handled separately after provisioning — Terraform owns the VM, Docker owns the stack.
+- Application deployment (Docker Compose, `.env`, service configuration) is handled separately after provisioning — Terraform owns the VM, Docker Compose owns the application stack.
+- TLS termination and reverse proxying are handled by Nginx Proxy Manager running in a separate Docker Compose stack on the same VM. See ADR-012 for the TLS termination decision.
 - Future work: remote state backend (Terraform Cloud or S3) for team use; DNS record management via Linode DNS provider.
