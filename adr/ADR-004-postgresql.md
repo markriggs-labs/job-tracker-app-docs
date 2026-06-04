@@ -31,3 +31,4 @@ PostgreSQL will be used as the primary relational database. Each microservice wi
 - Schema migrations are managed per service using Entity Framework Core migrations.
 - Connection pooling should be considered as service count grows.
 - A schema-per-service approach can be migrated to separate databases in the future if needed without application-level changes.
+- **EF Core `Database.MigrateAsync()` runs on startup in all environments, including Production.** Migrations are idempotent by design — EF Core tracks applied migrations in the `__EFMigrationsHistory` table and skips any that have already been applied. This removes the need for a separate migration step during deployment at the cost of a slightly longer cold-start. Migrations must be verified locally before deploying; a failed migration on startup will crash the service.
